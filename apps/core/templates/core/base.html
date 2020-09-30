@@ -9,7 +9,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-    <link rel="icon" type="image/png"  href="{% static 'todo/logo.png' %}">
+    <link rel="icon" type="image/png"  href="{% static 'core/logo.png' %}">
     <title>Todo Woo</title>
 </head>
 <body>
@@ -29,10 +29,10 @@
         <ul class="navbar-nav mr-auto">
 
                 <li class="nav-item {{ current }}">
-                    <a class="nav-link" href="{% url 'currenttodos' %}">Current</a>
+                    <a class="nav-link" href="{% url 'current' %}">Current</a>
                 </li>
                 <li class="nav-item {{ completed }}">
-                    <a class="nav-link" href="{% url 'completedtodos' %}">Completed</a>
+                    <a class="nav-link" href="{% url 'completed' %}">Completed</a>
                 </li>
                 <li class="nav-item {{ create }}">
                     <a class="nav-link" href="{% url 'createtodo' %}">Create</a>

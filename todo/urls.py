@@ -18,6 +18,18 @@ from django.urls import path
 from apps.core import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+
     path('register/', views.registeruser, name ='registeruser'), 
+    path('signup/', views.signupuser, name ='signupuser'), 
+    path('login/', views.login_user, name='loginuser'),
+    path('logout/', views.logoutuser, name='logoutuser'),
+
+
+    path('', views.home, name='home'),
+    path('create/', views.createtodo, name='createtodo'),
+    path('current/', views.current, name ='current'), 
+    path('completed/', views.completed, name ='completed'), 
+    path('todo/<int:todo_pk>', views.viewtodo, name='viewtodo'),
+    path('todo/<int:todo_pk>/complete', views.completetodo, name='completetodo'),
+    path('todo/<int:todo_pk>/delete', views.deletetodo, name='deletetodo'),
 ]
