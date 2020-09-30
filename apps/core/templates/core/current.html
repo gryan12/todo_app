@@ -1,18 +1,30 @@
-<!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="">
-    </head>
-    <body>
-        <h2> Current </h2>
-        <script src="" async defer></script>
-    </body>
-</html>
+{% extends "core/base.html" %}
+
+{% block content %}
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-10">
+            {% if todos %}
+                 <h1>{{ todos.count }} Current Todo{{ todos.count|pluralize }}</h1>
+            {% else %}
+                           <h1>Current Todos</h1>
+            {% endif %}
+        </div>
+    </div>
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-10">
+        {% if todos %}
+            <div class="list-group">
+                {% for todo in todos %}
+                    <a href="{% url 'viewtodo' todo.id %}" class="list-group-item list-group-item-action{% if todo.important %} list-group-item-danger{% endif %}"><b>{{ todo.title }}</b>{% if todo.memo %} - {{ todo.memo|truncatechars:30 }}{% endif %}</a>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="text-center">
+                <h2>Looks like you don't have any todos! Nice work.</h2>
+            <br>
+            <a role="button" class="btn btn-primary" href="{% url 'createtodo' %}">New Todo</a>
+            </div>
+        {% endif %}
+        </div>
+    </div>
+{% endblock %}
