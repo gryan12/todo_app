@@ -4,6 +4,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.db import IntegrityError
 from django.contrib.auth import login 
+from django.contrib.auth.decorators import login_required
 
 
 from .models import validate_user
@@ -16,8 +17,6 @@ def registeruser(request):
         return render(request, 'core/registeruser.html', {'form':UserCreationForm()})
 
     elif request.method == 'POST':
-        ##validate first
-
         if not validate_user(request.POST['username'],request.POST['password1'], request.POST['password2']):
             return render(request, 'core/registeruser.html', {'form':UserCreationForm(), 'error':'Passwords do not match'})
 
@@ -36,6 +35,18 @@ def login_user(request):
 
     elif request.method == "POST":
         user = authenticate(request, username=request.POST['username'], pasword=request.POST['password'])
+
+        if not user: 
+           return render(request, 'todo/loginuser.html', {'form':AuthenticationForm(), 'error':'Username and password did not match'})
+        else:
+            login(request, user)
+            return redirect('currenttodos')
+
+@login_required
+def logoutuser(request):
+    if request.method == "POST":
+        logout(request)
+        return redirect('home')
 
 
 
